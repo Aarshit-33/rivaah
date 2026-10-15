@@ -1,0 +1,16 @@
+# Design assets & reference mockups
+design/
+stitch_nimantran_digital_invitations_home/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Editor & tool directories
+.claude/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

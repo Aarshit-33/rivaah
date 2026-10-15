@@ -1,0 +1,718 @@
+/* ───────── Templates page: three carved doors ───────── */
+
+.th {
+  padding: calc(120px + 4vh) var(--gutter) 14vh;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 45% at 50% 85%, rgba(243, 199, 122, 0.22), rgba(243, 199, 122, 0) 70%),
+    var(--cream);
+  text-align: center;
+}
+
+.th-copy {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.th-copy .display {
+  font-size: clamp(40px, 5vw, 78px);
+}
+
+.th-copy .sec-lede {
+  margin-inline: auto;
+}
+
+.th-copy .actions {
+  justify-content: center;
+}
+
+.th-doors {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(14px, 3vw, 52px);
+  margin-top: 8vh;
+  padding-bottom: 60px;
+}
+
+.door {
+  --dw: clamp(190px, 19vw, 290px);
+  position: relative;
+  display: block;
+  text-decoration: none;
+  width: var(--dw);
+  margin: 0;
+  aspect-ratio: 200 / 320;
+  cursor: pointer;
+}
+
+/* The centre door stands a step lower than its neighbours. */
+.door--mid {
+  margin-top: clamp(48px, 7vw, 120px);
+}
+
+/* Warm light inside the arched opening (x 17%-83%, from 16.25% down). */
+.door-back {
+  position: absolute;
+  left: 17%;
+  right: 17%;
+  top: 16.25%;
+  bottom: 0;
+  border-radius: 999px 999px 0 0;
+  background:
+    radial-gradient(70% 45% at 50% 22%, rgba(255, 228, 170, 0.95), rgba(255, 228, 170, 0) 70%),
+    linear-gradient(180deg, #b77c43, #5a2a16 70%);
+  transition: filter 0.5s;
+}
+
+.door-card {
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  bottom: 8%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.door-card .ia {
+  box-shadow: 0 24px 30px -18px rgba(20, 6, 2, 0.8);
+}
+
+.door-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 30px 34px rgba(40, 16, 6, 0.4));
+}
+
+.door .door-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 18px);
+  display: grid;
+  gap: 2px;
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.door .door-caption span {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a6a38;
+}
+
+/* Hover: the card steps forward out of the doorway and the light warms up. */
+.door:hover .door-card {
+  transform: translateY(-9%) scale(1.04);
+}
+
+.door:hover .door-back {
+  filter: brightness(1.18) saturate(1.1);
+}
+
+/* ───────── Toolbar: search + sort, then the filter row ───────── */
+
+.tl {
+  padding: 0 var(--gutter) 14vh;
+  background: var(--paper);
+}
+
+.tl-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  gap: 14px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 96px var(--gutter) 16px;
+  background: var(--paper);
+  box-shadow: 0 1px 0 rgba(176, 141, 87, 0.3);
+}
+
+.tl-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.tl-search {
+  position: relative;
+  flex: 1;
+  min-width: 240px;
+}
+
+.tl-search svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  translate: 0 -50%;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.tl-search input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px 0 50px;
+  border: 1px solid rgba(176, 141, 87, 0.5);
+  border-radius: 99px;
+  background: var(--cream);
+  font: 500 16px var(--sans);
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tl-search input:focus {
+  outline: none;
+  border-color: var(--maroon);
+  box-shadow: 0 0 0 4px rgba(107, 30, 46, 0.1);
+}
+
+.tl-filter-label {
+  margin-right: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a6a38;
+}
+
+/* ───────── Custom dropdowns ───────── */
+
+.dd {
+  position: relative;
+}
+
+.dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px 0 18px;
+  border: 1px solid rgba(176, 141, 87, 0.55);
+  border-radius: 99px;
+  background: var(--cream);
+  font: 600 14px var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.dd-btn:hover {
+  border-color: var(--maroon);
+}
+
+.dd-btn.is-open {
+  border-color: var(--maroon);
+  box-shadow: 0 0 0 4px rgba(107, 30, 46, 0.1);
+}
+
+.dd-btn--sort {
+  min-height: 54px;
+  padding: 0 20px 0 22px;
+}
+
+.dd-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8a6a38;
+}
+
+.dd-value {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--maroon);
+}
+
+.dd-chev {
+  width: 12px;
+  height: 8px;
+  fill: none;
+  stroke: var(--maroon);
+  stroke-width: 1.6;
+  transition: rotate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dd-btn.is-open .dd-chev {
+  rotate: 180deg;
+}
+
+.dd-btn--filter.has-value {
+  border-color: var(--maroon);
+  background: rgba(107, 30, 46, 0.08);
+  color: var(--maroon);
+}
+
+.dd-count {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: var(--maroon);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--paper);
+}
+
+.dd-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 30;
+  min-width: 220px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgba(176, 141, 87, 0.45);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow:
+    0 24px 50px -20px rgba(60, 25, 15, 0.45),
+    0 2px 0 rgba(255, 255, 255, 0.6) inset;
+  transform-origin: top left;
+}
+
+.dd-pop.is-right {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+.dd-pop:focus {
+  outline: none;
+}
+
+/* Sort list */
+
+.dd-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 9px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dd-opt.is-active {
+  background: rgba(176, 141, 87, 0.16);
+}
+
+.dd-opt.is-selected {
+  font-weight: 700;
+  color: var(--maroon);
+}
+
+.dd-check {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--maroon);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Filter panels */
+
+.dd-pop--filter {
+  min-width: 240px;
+  padding: 14px 16px;
+}
+
+.dd-checks {
+  display: grid;
+  gap: 2px;
+}
+
+.dd-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 248px;
+  padding: 4px 0;
+}
+
+.dd-clear {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 0 2px;
+  border: 0;
+  border-top: 1px solid rgba(176, 141, 87, 0.3);
+  background: none;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  color: var(--maroon);
+  cursor: pointer;
+}
+
+.fg-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 36px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.fg-check:hover {
+  color: var(--maroon);
+}
+
+.fg-check input {
+  position: absolute;
+  opacity: 0;
+}
+
+.fg-box {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid rgba(176, 141, 87, 0.8);
+  border-radius: 5px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.fg-check.is-on .fg-box {
+  border-color: var(--maroon);
+  background: var(--maroon);
+}
+
+.fg-check.is-on .fg-box::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--paper);
+  border-width: 0 2px 2px 0;
+  rotate: 45deg;
+}
+
+.fg-check input:focus-visible + .fg-box {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
+
+.fg-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fg-swatch {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.fg-swatch-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ia-bg);
+  box-shadow:
+    0 0 0 1px rgba(176, 141, 87, 0.5),
+    0 0 0 4px var(--paper);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.fg-swatch:hover .fg-swatch-dot {
+  transform: scale(1.08);
+}
+
+.fg-swatch.is-on .fg-swatch-dot {
+  box-shadow:
+    0 0 0 2px var(--paper),
+    0 0 0 4px var(--maroon);
+}
+
+.fg-swatch.is-on {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+/* ───────── Results ───────── */
+
+.tl-results {
+  padding-top: 28px;
+}
+
+.tl-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  min-height: 44px;
+}
+
+.tl-status > p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 20px;
+}
+
+.tl-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tl-pills button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 99px;
+  background: rgba(107, 30, 46, 0.1);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--maroon);
+  cursor: pointer;
+}
+
+.tl-pills button:hover {
+  background: var(--maroon);
+  color: var(--paper);
+}
+
+.tl-clear {
+  min-height: 34px;
+  padding: 0 4px;
+  font-size: 12px;
+}
+
+.tl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 40px 28px;
+  margin-top: 24px;
+}
+
+.tcard {
+  perspective: 900px;
+}
+
+.tcard-tilt {
+  position: relative;
+  border-radius: 6px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.tcard-tilt .ia {
+  transition: box-shadow 0.4s;
+}
+
+.tcard-tilt:hover .ia {
+  box-shadow: 0 40px 50px -26px rgba(60, 25, 15, 0.6);
+}
+
+.tcard-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  transition: opacity 0.3s;
+}
+
+.tcard-tilt:hover .tcard-shine {
+  opacity: 1;
+}
+
+.tcard-actions {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  opacity: 0;
+  translate: 0 12px;
+  transition: opacity 0.3s, translate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tcard-actions .btn {
+  min-height: 40px;
+  padding: 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.tcard-tilt:hover .tcard-actions,
+.tcard-tilt:focus-within .tcard-actions {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.tcard-meta {
+  margin-top: 16px;
+}
+
+.tcard-meta h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tcard-meta h3 a:hover {
+  color: var(--maroon);
+}
+
+.tcard-meta h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 21px;
+}
+
+.tcard-meta p {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.tl-empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 80px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.tl-empty p {
+  margin: 0;
+}
+
+.tl-empty-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  color: var(--ink);
+}
+
+.tl-empty .btn {
+  margin-top: 16px;
+}
+
+.tl-note {
+  margin: 56px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Touch screens have no hover: the whole card opens the preview instead. */
+@media (hover: none) {
+  .tcard-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .th {
+    padding-top: calc(100px + 2vh);
+  }
+
+  .th-copy .display {
+    font-size: 38px;
+  }
+
+  .th-doors {
+    gap: 8px;
+    margin: 6vh calc(var(--gutter) * -0.5) 0;
+  }
+
+  .door {
+    --dw: 31vw;
+  }
+
+  .door--mid {
+    margin-top: 42px;
+  }
+
+  .door .door-caption {
+    top: calc(100% + 10px);
+    font-size: 14px;
+  }
+
+  .door .door-caption span {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  /* On phones the toolbar scrolls with the page instead of sticking. */
+  .tl-bar {
+    position: static;
+    padding-top: 32px;
+  }
+
+  .tl-search {
+    flex-basis: 100%;
+  }
+
+  .tl-row:first-child .dd {
+    flex: 1;
+  }
+
+  .dd-btn--sort {
+    justify-content: space-between;
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .tl-filter-label {
+    flex-basis: 100%;
+  }
+
+  .tl-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 14px;
+  }
+
+  .tcard-meta h3 {
+    font-size: 17px;
+  }
+
+  .tcard-actions {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .tcard-actions .btn {
+    min-height: 36px;
+  }
+}
