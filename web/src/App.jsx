@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from './lib/gsap'
 import { setLenis } from './lib/lenis'
@@ -21,18 +21,35 @@ import TemplateDetail from './templates/detail/TemplateDetail'
 import ContactPage from './contact/ContactPage'
 import ContactSection from './contact/ContactSection'
 
-// A few pages, no router needed: every link between them is a normal page load.
-const PATH = window.location.pathname.replace(/\/+$/, '')
-const PAGE =
-  PATH === '/templates'
-    ? 'templates'
-    : PATH.startsWith('/templates/')
-      ? 'detail'
-      : PATH === '/contact'
-        ? 'contact'
-        : 'home'
+export function getRoute() {
+  const p = (window.location.pathname || '/').replace(/\/+$/, '').toLowerCase()
+  if (p === '/contact' || p.endsWith('/contact')) {
+    return { page: 'contact' }
+  }
+  if (p === '/templates' || p.endsWith('/templates')) {
+    return { page: 'templates' }
+  }
+  if (p.includes('/templates/')) {
+    const idx = window.location.pathname.toLowerCase().indexOf('/templates/')
+    const id = decodeURIComponent(window.location.pathname.slice(idx + '/templates/'.length).replace(/\/+$/, ''))
+    return { page: 'detail', id }
+  }
+  return { page: 'home' }
+}
 
 export default function App() {
+  const [route, setRoute] = useState(getRoute)
+
+  useEffect(() => {
+    const onPop = () => setRoute(getRoute())
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [route.page, route.id])
+
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const lenis = new Lenis({ lerp: 0.1 })
@@ -46,16 +63,16 @@ export default function App() {
       lenis.destroy()
       setLenis(null)
     }
-  }, [])
+  }, [route.page])
 
-  if (PAGE !== 'home') {
+  if (route.page !== 'home') {
     return (
       <>
         <Nav />
         <main>
-          {PAGE === 'templates' && <TemplatesPage />}
-          {PAGE === 'detail' && <TemplateDetail id={decodeURIComponent(PATH.slice('/templates/'.length))} />}
-          {PAGE === 'contact' && <ContactPage />}
+          {route.page === 'templates' && <TemplatesPage />}
+          {route.page === 'detail' && <TemplateDetail id={route.id} />}
+          {route.page === 'contact' && <ContactPage />}
         </main>
         <Footer />
       </>
